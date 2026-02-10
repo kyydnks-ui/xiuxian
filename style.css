@@ -484,3 +484,124 @@ body {
         padding: 10px !important; /* 按钮变紧凑 */
     }
 }
+/* =========================================
+   8. 终极横屏适配补丁 (Start & Creator)
+   ========================================= */
+
+/* 仅在横屏且高度较小时生效 (手机横屏) */
+@media screen and (max-height: 600px) {
+    
+    /* --- A. 开始界面改造：左属性 / 右按钮 --- */
+    .start-card {
+        display: flex;             /* 开启左右布局 */
+        flex-direction: row;       /* 横向排列 */
+        align-items: center;       /* 垂直居中 */
+        gap: 20px;                 /* 中间间距 */
+        max-width: 600px;          /* 稍微变宽一点 */
+        padding: 20px;
+    }
+
+    .start-left-panel {
+        flex: 2;                   /* 左边占 2/3 空间 */
+        text-align: center;
+        border-right: 1px dashed #eee; /* 加个分隔线 */
+        padding-right: 20px;
+    }
+
+    .start-right-panel {
+        flex: 1;                   /* 右边占 1/3 空间 */
+        display: flex;
+        flex-direction: column;    /* 按钮垂直排列 */
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    /* 调整 Roll 点框在左侧的显示 */
+    .roll-box {
+        margin: 10px 0 0 0;
+        padding: 10px;
+    }
+
+    /* --- B. 捏脸界面改造：左控制 / 右预览 --- */
+    .char-creator-modal {
+        display: grid !important;
+        grid-template-columns: 1fr 220px; /* 左边自适应，右边固定 220px */
+        grid-template-rows: auto 1fr;     /* 上标题，下内容 */
+        width: 95% !important;
+        height: 90% !important;
+        max-width: 700px !important;
+        padding: 0 !important;
+    }
+
+    /* 1. 标题放左上角 */
+    .creator-header {
+        grid-column: 1 / 2;
+        padding: 10px !important;
+        border-bottom: 1px solid #eee;
+    }
+    .creator-header h3 { font-size: 16px !important; margin: 0; }
+
+    /* 2. 选项放左下角 (核心区域) */
+    .creator-body {
+        grid-column: 1 / 2;
+        padding: 10px !important;
+        overflow-y: auto;
+    }
+    .creator-controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 选项双列排布，省空间 */
+        gap: 8px;
+    }
+    /* 强制调整下拉框样式，让它看起来更紧凑 */
+    .creator-controls label {
+        font-size: 12px;
+        color: #888;
+        margin-bottom: 2px;
+        display: block;
+    }
+    .creator-controls select {
+        width: 100%;
+        padding: 6px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    /* 3. 预览放右边 (独占一列) */
+    .creator-footer {
+        grid-column: 2 / 3;
+        grid-row: 1 / 3; /* 跨满右侧 */
+        background: #f9f9f9;
+        border-left: 1px solid #eee;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 15px !important;
+    }
+
+    /* 4. 预览元素适配 */
+    .avatar-preview {
+        transform: scale(0.8); /* 头像稍微缩小 */
+        margin-bottom: 10px !important;
+    }
+    .desc-preview {
+        font-size: 11px !important;
+        height: auto;
+        max-height: 80px;
+        overflow-y: auto;
+        margin-bottom: 15px !important;
+        text-align: justify;
+        background: white;
+        padding: 5px;
+        border-radius: 4px;
+        border: 1px dashed #ddd;
+    }
+    
+    /* 5. 确认按钮 */
+    .creator-footer .btn {
+        width: 100%;
+        background: var(--accent-color);
+        box-shadow: 0 4px 10px rgba(192, 57, 43, 0.3);
+    }
+}
