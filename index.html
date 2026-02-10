@@ -113,13 +113,16 @@
 
     <div class="game-area">
         <div class="player-panel">
-            <button class="btn btn-inv" onclick="window.openInventory()">🎒 储物</button>
-            <button class="btn btn-inv" style="background:#2c3e50;" onclick="window.saveGame()">💾 存档</button>
-            <button class="btn btn-inv" style="background:#2c3e50;" onclick="window.loadGame()">📂 读档</button>
-            <button class="btn btn-inv" style="background:#7f8c8d;" onclick="window.openSettings()">⚙️ 设置</button>
-            <button class="btn btn-inv" style="background:#8e44ad;" onclick="window.triggerActiveSeize()">🧬 传承</button>
-            <button class="btn btn-inv" style="background:#27ae60;" onclick="window.exportSave()">📤 导出</button>
-            <button class="btn btn-inv" style="background:#d35400;" onclick="window.importSave()">📥 导入</button>
+            <div class="panel-actions" style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px;">
+                <button class="btn btn-inv" style="position: static; margin: 2px;" onclick="window.openInventory()">🎒 储物</button>
+                <button class="btn btn-inv" style="background:#2c3e50; position: static; margin: 2px;" onclick="window.saveGame()">💾 存档</button>
+                <button class="btn btn-inv" style="background:#2c3e50; position: static; margin: 2px;" onclick="window.loadGame()">📂 读档</button>
+                <button class="btn btn-inv" style="background:#7f8c8d; position: static; margin: 2px;" onclick="window.openSettings()">⚙️ 设置</button>
+                <button class="btn btn-inv" style="background:#8e44ad; position: static; margin: 2px;" onclick="window.triggerActiveSeize()">🧬 传承</button>
+                <button class="btn btn-inv" style="background:#27ae60; position: static; margin: 2px;" onclick="window.exportSave()">📤 导出</button>
+                <button class="btn btn-inv" style="background:#d35400; position: static; margin: 2px;" onclick="window.importSave()">📥 导入</button>
+            </div>
+
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <div style="display:flex; align-items:center;">
                     <div id="pAvatarDisplay" style="margin-right: 15px;"></div>
@@ -129,11 +132,13 @@
                         <span class="tag god">天凤血脉</span>
                     </div>
                 </div>
-                <div style="text-align:right; margin-right: 270px;"> 
+                
+                <div style="text-align:right;"> 
                     <div style="font-size:18px; font-weight:bold; color:#2c3e50" id="pAgeDisplay"></div>
                     <div style="font-size:12px; color:#7f8c8d" id="gameTime"></div>
                 </div>
             </div>
+
             <div class="stats-bar">
                 <div class="stat-item"><strong>境界</strong><span id="pRealm" style="color:#d35400; font-weight:bold;">凡人</span></div>
                 <div class="stat-item"><strong>精力</strong><span id="pAP" style="color:#f1c40f; font-weight:bold;">3/3</span></div>
@@ -142,11 +147,12 @@
                 <div class="stat-item"><strong>魅力</strong><span id="pCharm">0</span></div>
                 <div class="stat-item"><strong>夫君</strong><span id="pSpouse">无</span></div>
             </div>
+
             <div class="family-area">
                 <div style="font-size:12px; color:#555; margin-bottom:5px; display:flex; justify-content:space-between; align-items:center;">
-    <span>👶 家族子嗣 (明面已认):</span>
-    <button class="btn" style="background:#8e44ad; color:white; font-size:10px; padding:2px 8px;" onclick="window.openFamilyTree()">🌳 查看族谱</button>
-</div>
+                    <span>👶 家族子嗣 (明面已认):</span>
+                    <button class="btn" style="background:#8e44ad; color:white; font-size:10px; padding:2px 8px;" onclick="window.openFamilyTree()">🌳 查看族谱</button>
+                </div>
                 <div id="childrenList"></div>
             </div>
         </div>
