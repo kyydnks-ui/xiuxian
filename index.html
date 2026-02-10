@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>家族修仙录 v0.36 - 立绘版</title>
    <link rel="stylesheet" href="style.css">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 </head>
 <div id="dev-console" style="position:fixed; right:10px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.8); color:white; padding:10px; border-radius:8px; z-index:9999; display:none; font-size:12px;">
     <h4 style="margin:0 0 10px 0; color:#f1c40f;">造物主面板</h4>
@@ -60,7 +61,7 @@
 
 <button class="btn" style="background:var(--main-color); color:white; width:100%; font-weight:bold; font-size:16px;" 
     onmouseover="window.playSound('hover')" 
-    onclick="playIntro()">🚀 踏入仙途</button>
+    onclick="window.toggleFullScreen(); playIntro()">🚀 踏入仙途</button>
 
 <button class="btn" style="background:#95a5a6; color:white; width:100%; margin-top:5px;" 
     onmouseover="window.playSound('hover')" 
@@ -110,12 +111,12 @@
     <div class="game-area">
         <div class="player-panel">
             <button class="btn btn-inv" onclick="window.openInventory()">🎒 储物</button>
-            <button class="btn btn-inv" style="right: 90px; background:#2c3e50;" onclick="window.saveGame()">💾 存档</button>
-            <button class="btn btn-inv" style="right: 150px; background:#2c3e50;" onclick="window.loadGame()">📂 读档</button>
-            <button class="btn btn-inv" style="right: 210px; background:#7f8c8d;" onclick="window.openSettings()">⚙️ 设置</button>
-            <button class="btn btn-inv" style="right: 270px; background:#8e44ad;" onclick="window.triggerActiveSeize()">🧬 传承</button>
-            <button class="btn btn-inv" style="right: 330px; background:#27ae60;" onclick="window.exportSave()">📤 导出</button>
-            <button class="btn btn-inv" style="right: 390px; background:#d35400;" onclick="window.importSave()">📥 导入</button>
+            <button class="btn btn-inv" style="background:#2c3e50;" onclick="window.saveGame()">💾 存档</button>
+            <button class="btn btn-inv" style="background:#2c3e50;" onclick="window.loadGame()">📂 读档</button>
+            <button class="btn btn-inv" style="background:#7f8c8d;" onclick="window.openSettings()">⚙️ 设置</button>
+            <button class="btn btn-inv" style="background:#8e44ad;" onclick="window.triggerActiveSeize()">🧬 传承</button>
+            <button class="btn btn-inv" style="background:#27ae60;" onclick="window.exportSave()">📤 导出</button>
+            <button class="btn btn-inv" style="background:#d35400;" onclick="window.importSave()">📥 导入</button>
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <div style="display:flex; align-items:center;">
                     <div id="pAvatarDisplay" style="margin-right: 15px;"></div>

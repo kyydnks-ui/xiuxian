@@ -478,3 +478,127 @@ body {
     background-color: rgba(255, 192, 203, 0.15); /* 淡淡的粉色背景 */
     border-color: rgba(233, 30, 99, 0.3);
 }
+/* =========================================
+   移动端横屏适配 (Mobile Landscape)
+   针对高度小于 500px 的设备 (通常手机横屏高度在 350-450px 之间)
+   ========================================= */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+
+    /* 1. 全局容器调整：利用刘海屏安全区域 */
+    body {
+        padding: 0; /* 去掉四周的大留白 */
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+        gap: 10px; /* 减小面板间距 */
+    }
+
+    /* 2. 隐藏滚动条但保留滚动功能 (手机上滚动条很丑) */
+    .game-area::-webkit-scrollbar,
+    .log-panel::-webkit-scrollbar,
+    #npcList::-webkit-scrollbar,
+    .modal-detail .detail-center::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* 3. 玩家面板 (Player Panel) 改造 */
+    .player-panel {
+        /* 变为弹性布局，不再依赖绝对定位 */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        height: auto;
+        padding: 10px;
+    }
+
+    /* 强制覆盖内联样式的 absolute 定位 */
+    .player-panel .btn-inv {
+        position: static !important; /* 取消绝对定位 */
+        margin: 2px;
+        flex: 1 0 auto; /* 按钮自动伸缩 */
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+    
+    /* 调整名字和头像区域 */
+    .player-panel > div:first-child {
+        width: 100%;
+        margin-bottom: 5px;
+        border-bottom: 1px dashed #ddd;
+        padding-bottom: 5px;
+    }
+    
+    /* 隐藏一些不重要的信息以节省空间，比如游戏时间的文字描述可以简化 */
+    #gameTime { font-size: 10px; }
+
+    /* 4. 角色详情弹窗 (Modal Detail) 重构 */
+    /* 这是一个巨大的弹窗，必须压缩 */
+    .modal-detail {
+        width: 98% !important; /* 覆盖 JS 中的 width: 900px */
+        height: 95vh !important;
+        max-width: none !important;
+        padding: 10px !important;
+        gap: 8px;
+    }
+
+    /* 左侧：头像栏 - 缩小并隐藏次要信息 */
+    .detail-left {
+        flex: 0 0 120px; /* 固定宽度 */
+        overflow-y: auto;
+        border-right: 1px solid #eee;
+        padding-right: 5px;
+    }
+    /* 在手机上隐藏大头像，或者缩小它 */
+    .detail-left .avatar-box {
+        transform: scale(0.8);
+        margin-left: -10px;
+    }
+    /* 隐藏一些占地方的描述文本 */
+    .detail-left #mAppearance, 
+    .detail-left #mTags {
+        font-size: 10px;
+        line-height: 1.2;
+    }
+
+    /* 中间：属性栏 - 允许滚动 */
+    .detail-center {
+        flex: 1;
+        overflow-y: auto; /* 内容多时可滚动 */
+    }
+
+    /* 右侧：按钮栏 - 变为底部固定或右侧紧凑栏 */
+    .detail-right {
+        flex: 0 0 100px; /* 按钮栏变窄 */
+        padding-left: 5px;
+        overflow-y: auto;
+    }
+    
+    /* 按钮变大，方便拇指点击 */
+    .modal-actions {
+        display: flex !important;
+        flex-direction: column;
+    }
+    .modal-actions .btn {
+        padding: 10px 5px !important; /* 增加触控区域 */
+        font-size: 12px !important;
+        margin-bottom: 5px;
+    }
+
+    /* 5. 游戏日志 (Log Panel) */
+    /* 手机屏幕小，日志可以设为半透明悬浮，或者缩小 */
+    .log-panel {
+        display: none; /* 激进方案：横屏下暂时隐藏右侧日志，或者做成点击呼出的抽屉 */
+        /* 如果想保留，可以使用 flex: 0 0 150px; */
+    }
+    
+    /* 6. 场景人物列表 */
+    .npc-list {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* 卡片变小 */
+    }
+    .npc-card {
+        padding: 8px;
+    }
+
+    /* 7. 字体大小调整 */
+    body { font-size: 14px; }
+    .btn { font-size: 14px; padding: 8px 12px; } /* 按钮文字变大 */
+}
