@@ -2,12 +2,8 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>家族修仙录 v0.50 - 立绘版</title>
+    <title>家族修仙录 v0.36 - 立绘版</title>
    <link rel="stylesheet" href="style.css">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="mobile-web-app-capable" content="yes">
 </head>
 <div id="dev-console" style="position:fixed; right:10px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.8); color:white; padding:10px; border-radius:8px; z-index:9999; display:none; font-size:12px;">
     <h4 style="margin:0 0 10px 0; color:#f1c40f;">造物主面板</h4>
@@ -64,7 +60,7 @@
 
 <button class="btn" style="background:var(--main-color); color:white; width:100%; font-weight:bold; font-size:16px;" 
     onmouseover="window.playSound('hover')" 
-    onclick="window.toggleFullScreen(); playIntro()">🚀 踏入仙途</button>
+    onclick="playIntro()">🚀 踏入仙途</button>
 
 <button class="btn" style="background:#95a5a6; color:white; width:100%; margin-top:5px;" 
     onmouseover="window.playSound('hover')" 
@@ -113,16 +109,13 @@
 
     <div class="game-area">
         <div class="player-panel">
-            <div class="panel-actions" style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px;">
-                <button class="btn btn-inv" style="position: static; margin: 2px;" onclick="window.openInventory()">🎒 储物</button>
-                <button class="btn btn-inv" style="background:#2c3e50; position: static; margin: 2px;" onclick="window.saveGame()">💾 存档</button>
-                <button class="btn btn-inv" style="background:#2c3e50; position: static; margin: 2px;" onclick="window.loadGame()">📂 读档</button>
-                <button class="btn btn-inv" style="background:#7f8c8d; position: static; margin: 2px;" onclick="window.openSettings()">⚙️ 设置</button>
-                <button class="btn btn-inv" style="background:#8e44ad; position: static; margin: 2px;" onclick="window.triggerActiveSeize()">🧬 传承</button>
-                <button class="btn btn-inv" style="background:#27ae60; position: static; margin: 2px;" onclick="window.exportSave()">📤 导出</button>
-                <button class="btn btn-inv" style="background:#d35400; position: static; margin: 2px;" onclick="window.importSave()">📥 导入</button>
-            </div>
-
+            <button class="btn btn-inv" onclick="window.openInventory()">🎒 储物</button>
+            <button class="btn btn-inv" style="right: 90px; background:#2c3e50;" onclick="window.saveGame()">💾 存档</button>
+            <button class="btn btn-inv" style="right: 150px; background:#2c3e50;" onclick="window.loadGame()">📂 读档</button>
+            <button class="btn btn-inv" style="right: 210px; background:#7f8c8d;" onclick="window.openSettings()">⚙️ 设置</button>
+            <button class="btn btn-inv" style="right: 270px; background:#8e44ad;" onclick="window.triggerActiveSeize()">🧬 传承</button>
+            <button class="btn btn-inv" style="right: 330px; background:#27ae60;" onclick="window.exportSave()">📤 导出</button>
+            <button class="btn btn-inv" style="right: 390px; background:#d35400;" onclick="window.importSave()">📥 导入</button>
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <div style="display:flex; align-items:center;">
                     <div id="pAvatarDisplay" style="margin-right: 15px;"></div>
@@ -132,13 +125,11 @@
                         <span class="tag god">天凤血脉</span>
                     </div>
                 </div>
-                
-                <div style="text-align:right;"> 
+                <div style="text-align:right; margin-right: 270px;"> 
                     <div style="font-size:18px; font-weight:bold; color:#2c3e50" id="pAgeDisplay"></div>
                     <div style="font-size:12px; color:#7f8c8d" id="gameTime"></div>
                 </div>
             </div>
-
             <div class="stats-bar">
                 <div class="stat-item"><strong>境界</strong><span id="pRealm" style="color:#d35400; font-weight:bold;">凡人</span></div>
                 <div class="stat-item"><strong>精力</strong><span id="pAP" style="color:#f1c40f; font-weight:bold;">3/3</span></div>
@@ -147,12 +138,11 @@
                 <div class="stat-item"><strong>魅力</strong><span id="pCharm">0</span></div>
                 <div class="stat-item"><strong>夫君</strong><span id="pSpouse">无</span></div>
             </div>
-
             <div class="family-area">
                 <div style="font-size:12px; color:#555; margin-bottom:5px; display:flex; justify-content:space-between; align-items:center;">
-                    <span>👶 家族子嗣 (明面已认):</span>
-                    <button class="btn" style="background:#8e44ad; color:white; font-size:10px; padding:2px 8px;" onclick="window.openFamilyTree()">🌳 查看族谱</button>
-                </div>
+    <span>👶 家族子嗣 (明面已认):</span>
+    <button class="btn" style="background:#8e44ad; color:white; font-size:10px; padding:2px 8px;" onclick="window.openFamilyTree()">🌳 查看族谱</button>
+</div>
                 <div id="childrenList"></div>
             </div>
         </div>

@@ -747,7 +747,7 @@ if (isHighRank && meetRelation) {
     let containerClass = isPlayer ? "modal-detail is-player" : "modal-detail";
     let modalStyle = "";
     if (showR18Panel) {
-        modalStyle = "grid-template-columns: 200px 220px 240px 1fr;";// 四栏布局
+        modalStyle = "width: 900px; max-width: 95vw; grid-template-columns: 200px 220px 240px 1fr;"; // 四栏布局
     }
 
     let emotionSectionStyle = isPlayer ? "display:none;" : "";
@@ -2244,14 +2244,5 @@ window.handleNightOption = function(id, choice) {
         if (window.addLog) window.addLog(resultLog, "#e91e63");
         // 刷新一下主界面（如果需要）
         if (window.updateUI) window.updateUI();
-    }
-};
-window.toggleFullScreen = function() {
-    // 检查浏览器是否支持全屏API
-    if (!document.fullscreenElement) {
-        // 尝试请求全屏
-        document.documentElement.requestFullscreen().catch(err => {
-            console.log(`全屏模式启动失败: ${err.message}`);
-        });
     }
 };
