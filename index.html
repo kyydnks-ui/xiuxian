@@ -1,465 +1,251 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">
-    <title>家族修仙录 v0.50 - 立绘版</title>
-   <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>家族修仙录 v0.50 - 移动版</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<div id="dev-console" style="position:fixed; right:10px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.8); color:white; padding:10px; border-radius:8px; z-index:9999; display:none; font-size:12px;">
-    <h4 style="margin:0 0 10px 0; color:#f1c40f;">造物主面板</h4>
-    <button onclick="devAddStones()">灵石+1000</button><br>
-    <button onclick="devAddPower()">修为+5000</button><br>
-    <button onclick="devFullAP()">精力补满</button><br>
-    <hr>
-    <button onclick="document.getElementById('dev-console').style.display='none'">关闭</button>
-</div>
 <body>
-    <div id="orientation-lock">
-    <div style="text-align:center; padding-top: 50%;">
-        <h1>📱 请横屏游戏</h1>
-        <p>为了最佳体验，请旋转您的手机</p>
-    </div>
-</div>
+
+    <div id="dev-console" style="display:none; position:fixed; z-index:9999;">...</div> 
+
     <div id="startScreen">
         <div class="start-card">
             <h2 style="color:var(--main-color)">家族修仙录</h2>
-            <p>创建你的角色</p>
-            <div id="rollStats" style="display:flex; justify-content:space-around; align-items:center; background:#fafafa; padding:15px 5px; border-radius:5px; margin-bottom:15px;">
-                
-                <div style="text-align:center; flex:1;">
-                    <div style="font-size:12px; color:#777; margin-bottom:5px;">灵力资质</div>
-                    <div style="font-size:24px; font-weight:bold; color:#d35400; display:flex; align-items:center; justify-content:center;">
+            <p>移动重制版</p>
+            
+            <div id="rollStats" class="roll-box">
+                <div class="roll-item">
+                    <label>灵力资质</label>
+                    <div class="roll-val power">
                         <span id="rollPower">0</span>
-                        <span id="lockPower" onclick="toggleLock('power')" 
-                              style="cursor:pointer; font-size:16px; margin-left:8px; opacity:0.3; transition:all 0.2s;" 
-                              title="点击锁定/解锁">🔓</span>
+                        <span id="lockPower" onclick="toggleLock('power')">🔓</span>
                     </div>
                 </div>
-
-                <div style="width:1px; height:30px; background:#ddd;"></div>
-
-                <div style="text-align:center; flex:1;">
-                    <div style="font-size:12px; color:#777; margin-bottom:5px;">先天智力</div>
-                    <div style="font-size:24px; font-weight:bold; color:#2980b9; display:flex; align-items:center; justify-content:center;">
+                <div class="roll-divider"></div>
+                <div class="roll-item">
+                    <label>先天智力</label>
+                    <div class="roll-val int">
                         <span id="rollInt">0</span>
-                        <span id="lockInt" onclick="toggleLock('int')" 
-                              style="cursor:pointer; font-size:16px; margin-left:8px; opacity:0.3; transition:all 0.2s;" 
-                              title="点击锁定/解锁">🔓</span>
+                        <span id="lockInt" onclick="toggleLock('int')">🔓</span>
                     </div>
                 </div>
-
-                <div style="width:1px; height:30px; background:#ddd;"></div>
-
-                <div style="text-align:center; flex:1;">
-                    <div style="font-size:12px; color:#777; margin-bottom:5px;">容貌魅力</div>
-                    <div style="font-size:24px; font-weight:bold; color:#e91e63; display:flex; align-items:center; justify-content:center;">
+                <div class="roll-divider"></div>
+                <div class="roll-item">
+                    <label>容貌魅力</label>
+                    <div class="roll-val charm">
                         <span id="rollCharm">0</span>
-                        <span id="lockCharm" onclick="toggleLock('charm')" 
-                              style="cursor:pointer; font-size:16px; margin-left:8px; opacity:0.3; transition:all 0.2s;" 
-                              title="点击锁定/解锁">🔓</span>
+                        <span id="lockCharm" onclick="toggleLock('charm')">🔓</span>
                     </div>
                 </div>
             </div>
-            <button class="btn" style="background:var(--accent-color); color:white; width:100%; margin-bottom:10px;" 
-    onmouseover="window.playSound('hover')" 
-    onclick="window.rollStats()">🎲 随机属性 (Roll)</button>
 
-<button class="btn" style="background:var(--main-color); color:white; width:100%; font-weight:bold; font-size:16px;" 
-    onmouseover="window.playSound('hover')" 
-    onclick="playIntro()">🚀 踏入仙途</button>
-
-<button class="btn" style="background:#95a5a6; color:white; width:100%; margin-top:5px;" 
-    onmouseover="window.playSound('hover')" 
-    onclick="window.loadGame(true)">📂 读取旧存档</button>
+            <button class="btn btn-primary" onclick="window.rollStats()">🎲 随机属性</button>
+            <button class="btn btn-accent" onclick="playIntro()">🚀 踏入仙途</button>
+            <button class="btn btn-secondary" onclick="window.loadGame(true)">📂 读取旧存档</button>
         </div>
-    
     </div>
-<div id="introScreen" onclick="showNextIntro()">
-        <div id="storyContent" class="story-container">
-            </div>
+
+    <div id="introScreen" onclick="showNextIntro()">
+        <div id="storyContent" class="story-container"></div>
         <div class="click-hint">—— 点击屏幕继续 ——</div>
         <button class="skip-btn" onclick="event.stopPropagation(); endIntro()">跳过 >></button>
     </div>
-    <div id="charCreator" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:150; align-items:center; justify-content:center; backdrop-filter: blur(5px);">
+
+    <div id="charCreator" style="display:none;">
+        <div class="modal char-creator-modal">
+            <div class="creator-header">
+                <h3>✨ 塑造金身</h3>
+            </div>
+            <div class="creator-body">
+                <div id="creatorControls" class="creator-controls"></div>
+            </div>
+            <div class="creator-footer">
+                <div id="charAvatarPreview" class="avatar-preview"></div>
+                <div id="creatorPreview" class="desc-preview"></div>
+                <button class="btn btn-accent full-width" onclick="window.finishCreator()">🔮 塑形完成</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-shell" style="display:none;">
         
-        <div class="modal" style="width: 900px; max-width: 95vw; height: 600px; padding: 0; display: flex; overflow: hidden; border-radius: 12px;">
+        <header class="app-header">
+            <div class="header-user" onclick="window.openPlayerDetail()">
+                <div id="pAvatarDisplay" class="header-avatar"></div>
+                <div class="header-info">
+                    <div class="name-row">
+                        <span id="pName"></span>
+                        <span id="pRealm" class="badge">凡人</span>
+                    </div>
+                    <div class="status-row">
+                        <span id="pAgeDisplay">0岁</span>
+                        <span class="ap-badge">⚡ <span id="pAP">3/3</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-stats">
+                <span>💪 <b id="pPower">0</b></span>
+                <span>🧠 <b id="pInt">0</b></span>
+                <span>🌸 <b id="pCharm">0</b></span>
+            </div>
+        </header>
+
+        <main class="app-content">
+            <div class="scene-section">
+                <div class="section-header">
+                    <span>📍 当前场景</span>
+                    <button class="btn-mini" onclick="window.nextTurn()">🌙 闭关一月</button>
+                </div>
+                <div id="scene-action-area"></div> 
+            </div>
+
+            <div id="npcList" class="npc-list"></div>
             
-            <div style="flex: 6; padding: 30px; display: flex; flex-direction: column; background: #fff; border-right: 1px solid #eee;">
-                
-                <h3 style="color:var(--main-color); margin-top:0; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px;">✨ 塑造金身</h3>
-                <p style="font-size:13px; color:#666; margin-bottom:20px;">云雾衡，请描绘你的容貌...</p>
-                
-                <div id="creatorControls" style="display:grid; grid-template-columns: 1fr 1fr; gap: 15px; overflow-y: auto; padding-right: 10px; flex: 1; align-content: start;">
-                    </div>
-
-                <button class="btn" style="background:var(--main-color); color:white; width:100%; font-weight:bold; padding:15px; margin-top: 20px; font-size: 16px; box-shadow: 0 4px 10px rgba(142, 68, 173, 0.3);" 
-                    onmouseover="window.playSound('hover')" 
-                    onclick="window.finishCreator()">
-                    🔮 塑形完成，入世！
-                </button>
-            </div>
-            <div style="flex: 4; background: #f8f9fa; padding: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-left: 1px solid #e0e0e0; position: relative;">
-                
-                <div style="font-weight:bold; color:#333; margin-bottom: 20px; font-size: 16px;">当前预览</div>
-
-                <div id="charAvatarPreview" style="margin-bottom: 25px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.15));"></div>
-
-               
-
-                <div id="creatorPreview" style="font-size:12px; color:#555; line-height: 1.6; background: white; padding: 15px; border-radius: 8px; width: 100%; box-sizing: border-box; border: 1px dashed #ccc; text-align: justify;">
-                    </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="game-area">
-        <div class="player-panel">
-            <button class="btn btn-inv" onclick="window.openInventory()">🎒 储物</button>
-            <button class="btn btn-inv" style="right: 90px; background:#2c3e50;" onclick="window.saveGame()">💾 存档</button>
-            <button class="btn btn-inv" style="right: 150px; background:#2c3e50;" onclick="window.loadGame()">📂 读档</button>
-            <button class="btn btn-inv" style="right: 210px; background:#7f8c8d;" onclick="window.openSettings()">⚙️ 设置</button>
-            <button class="btn btn-inv" style="right: 270px; background:#8e44ad;" onclick="window.triggerActiveSeize()">🧬 传承</button>
-            <button class="btn btn-inv" style="right: 330px; background:#27ae60;" onclick="window.exportSave()">📤 导出</button>
-            <button class="btn btn-inv" style="right: 390px; background:#d35400;" onclick="window.importSave()">📥 导入</button>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <div style="display:flex; align-items:center;">
-                    <div id="pAvatarDisplay" style="margin-right: 15px;"></div>
-                    
-                    <div>
-                        <span style="font-size: 22px; font-weight: bold; cursor:pointer; border-bottom:1px dashed #ccc;" id="pName" onclick="window.openPlayerDetail()"></span>
-                        <span class="tag god">天凤血脉</span>
-                    </div>
-                </div>
-                <div style="text-align:right; margin-right: 270px;"> 
-                    <div style="font-size:18px; font-weight:bold; color:#2c3e50" id="pAgeDisplay"></div>
-                    <div style="font-size:12px; color:#7f8c8d" id="gameTime"></div>
-                </div>
-            </div>
-            <div class="stats-bar">
-                <div class="stat-item"><strong>境界</strong><span id="pRealm" style="color:#d35400; font-weight:bold;">凡人</span></div>
-                <div class="stat-item"><strong>精力</strong><span id="pAP" style="color:#f1c40f; font-weight:bold;">3/3</span></div>
-                <div class="stat-item"><strong>修为</strong><span id="pPower">0</span></div>
-                <div class="stat-item"><strong>智力</strong><span id="pInt">0</span></div>
-                <div class="stat-item"><strong>魅力</strong><span id="pCharm">0</span></div>
-                <div class="stat-item"><strong>夫君</strong><span id="pSpouse">无</span></div>
-            </div>
-            <div class="family-area">
-                <div style="font-size:12px; color:#555; margin-bottom:5px; display:flex; justify-content:space-between; align-items:center;">
-    <span>👶 家族子嗣 (明面已认):</span>
-    <button class="btn" style="background:#8e44ad; color:white; font-size:10px; padding:2px 8px;" onclick="window.openFamilyTree()">🌳 查看族谱</button>
-</div>
+            <div style="display:none;">
+                <span id="pSpouse"></span>
                 <div id="childrenList"></div>
+                <div id="gameTime"></div>
             </div>
-        </div>
-        <div class="section-title">
-            <span>📍 当前场景人物</span>
-            <button class="btn" style="background:#3498db; color:white;" onclick="window.nextTurn()">🌙 闭关一月 (下个月)</button>
-        </div>
-        <div id="npcList" class="npc-list"></div>
+        </main>
+
+        <nav class="app-tabbar">
+            <div class="tab-item" onclick="window.openInventory()">
+                <i class="fas fa-box-open"></i>
+                <span>储物</span>
+            </div>
+            <div class="tab-item" onclick="window.openMap()">
+                <i class="fas fa-map-marked-alt"></i>
+                <span>地图</span>
+            </div>
+            <div class="tab-item" onclick="document.getElementById('logModal').style.display='flex'">
+                <i class="fas fa-scroll"></i>
+                <span>日志</span>
+            </div>
+            <div class="tab-item" onclick="window.openFamilyTree()">
+                <i class="fas fa-users"></i>
+                <span>家族</span>
+            </div>
+            <div class="tab-item" onclick="window.openSettings()">
+                <i class="fas fa-cog"></i>
+                <span>设置</span>
+            </div>
+        </nav>
     </div>
 
-    <div class="log-panel" id="gameLog">
-        <div class="log-entry">--- 玄黄界编年史 ---</div>
-    </div>
-
-    <div class="modal-overlay" id="detailModal" onclick="if(event.target===this) window.closeModal()">
-        <!-- =================== 角色详情弹窗（三栏布局） =================== -->
-        <!-- 整体弹窗容器：宽矩形 + 三栏布局 -->
-        <div class="modal modal-detail">
-            <!-- 顶部右上角关闭按钮（整个弹窗统一的关闭交互） -->
-            <div style="position:absolute; top:12px; right:18px; cursor:pointer; font-size:20px; color:#999;" onclick="window.closeModal()">×</div>
-
-            <!-- ========= 左侧：角色名字 + 身份描述区域 ========= -->
-            <!-- 显示角色姓名、性格标签、性别年龄、境界徽章、外貌描述、特质标签等 -->
-            <div class="detail-left">
-                <div style="font-size:20px; font-weight:bold; color:var(--main-color); margin-bottom:4px;">
-                    <span id="mName"></span>
-                    <span id="mPersonality" class="personality-label"></span>
-                </div>
-                <div style="color:#666; font-size:13px; margin-bottom:6px;">
-                    <span id="mGender"></span> · <span id="mAge"></span>岁
-                    <span id="mRealmBadge" class="realm-badge"></span>
-                </div>
-                <div id="mAppearance" style="font-size:12px; color:#555; font-style:italic; margin:8px 0; padding:6px 8px; background:#f9f9f9; border-radius:4px;"></div>
-                <div id="mTags" style="margin-top:6px;"></div>
+    <div id="logModal" class="modal-overlay">
+        <div class="modal full-screen-modal">
+            <div class="modal-header">
+                <h3>📜 玄黄界编年史</h3>
+                <span class="close-btn" onclick="document.getElementById('logModal').style.display='none'">×</span>
             </div>
-
-            <!-- ========= 中间：属性信息区域 ========= -->
-            <!-- 将原来的属性按类型分块：基础身份 / 数值属性 / 情感状态，方便快速扫一眼 -->
-            <div class="detail-center">
-                <!-- 身份信息：当前状态、持有物品等 -->
-                <div class="detail-attr-section">
-                    <div class="detail-attr-title">🧾 身份信息</div>
-                    <div class="detail-attr-row">
-                        <span>当前状态</span>
-                        <strong id="mStatus">正常</strong>
-                    </div>
-                    <div class="detail-attr-row">
-                        <span>持有物品</span>
-                        <span id="mItems" style="font-size:12px; color:#666; text-align:right; max-width:220px;"></span>
-                    </div>
-                </div>
-
-                <!-- 数值属性：修为 / 智力 / 魅力 -->
-                <div class="detail-attr-section">
-                    <div class="detail-attr-title">📊 数值属性</div>
-                    <div class="detail-attr-row">
-                        <span>境界修为</span>
-                        <strong id="mPower"></strong>
-                    </div>
-                    <div class="detail-attr-row">
-                        <span>智力谋略</span>
-                        <strong id="mInt"></strong>
-                    </div>
-                    <div class="detail-attr-row">
-                        <span>容貌魅力</span>
-                        <strong id="mCharm"></strong>
-                    </div>
-                </div>
-
-                <!-- 情感状态：好感 / 爱意 / 黑化（NPC 使用；玩家会隐藏这一块） -->
-                <div class="detail-attr-section detail-attr-emotion">
-                    <div class="detail-attr-title">💖 情感与心性</div>
-                    <div class="detail-attr-row">
-                        <span>对你态度</span>
-                        <strong id="mRelation" style="color:#d35400;">0</strong>
-                    </div>
-                    <div class="detail-attr-row">
-                        <span>爱意羁绊</span>
-                        <strong id="mLove" style="color:#e91e63;">0</strong>
-                    </div>
-                    <div class="detail-attr-row">
-                        <span>黑化程度</span>
-                        <span id="mDarkness" style="color:#8e44ad; font-weight:bold;">0</span>
-                    </div>
-                </div>
-                
-                <!-- 亲缘关系：父母 / 道侣 / 子嗣 -->
-                <div class="detail-attr-section">
-                    <div class="detail-attr-title">👪 亲缘关系</div>
-                    <div class="detail-attr-row">
-                        <span>父母双亲</span>
-                        <span id="mParents" style="font-size:12px; text-align:right;"></span>
-                    </div>
-                    <div class="detail-attr-row">
-                        <span>结发道侣</span>
-                        <span id="mSpouseView" style="font-size:12px; text-align:right;"></span>
-                    </div>
-                    <div class="detail-attr-row">
-                        <span>膝下子嗣</span>
-                        <span id="mChildren" style="font-size:12px; text-align:right; line-height:1.3;"></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ========= 右侧：交互按钮栏 ========= -->
-            <!-- 将交谈 / 赠礼 / 攻击等操作集中在一列，让玩家一眼就能看到可以做什么 -->
-            <div class="detail-right">
-                <div class="detail-right-title">🎯 可用互动</div>
-                <div class="modal-actions" id="mActions"></div>
+            <div id="gameLog" class="log-content">
+                <div class="log-entry">--- 记录开始 ---</div>
             </div>
         </div>
     </div>
 
-    <div class="modal-overlay" id="inventoryModal" onclick="if(event.target===this) document.getElementById('inventoryModal').style.display='none'">
-        <div class="modal">
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                <h3 style="margin:0;">📦 储物袋</h3>
-                <span style="cursor:pointer;" onclick="document.getElementById('inventoryModal').style.display='none'">×</span>
+    <div id="detailModal" class="modal-overlay" onclick="if(event.target===this) window.closeModal()">
+        </div>
+
+    <div id="inventoryModal" class="modal-overlay" onclick="if(event.target===this) this.style.display='none'">
+        <div class="modal bottom-sheet">
+            <div class="modal-header">
+                <h3>📦 储物袋</h3>
+                <span class="close-btn" onclick="document.getElementById('inventoryModal').style.display='none'">×</span>
             </div>
-            <div id="invList" style="max-height: 300px; overflow-y: auto;"></div>
+            <div id="invList" class="scroll-box"></div>
         </div>
     </div>
 
-    <div class="modal-overlay" id="settingsModal" onclick="if(event.target===this) window.closeModal()">
-        <div class="modal" style="width:320px;"> <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
-            <h3 style="margin:0;">⚙️ 游戏设置</h3>
-            <span style="cursor:pointer;" onclick="window.closeModal()">×</span>
-        </div>
-        <div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #eee;">
-    <input type="checkbox" id="set_r18" onclick="window.toggleSetting('enableR18')"> 
-    <label for="set_r18" style="color: #c0392b; font-weight: bold;">开启极致描述 (18+)</label>
-    <div style="font-size: 11px; color: #999; margin-left: 20px;">开启后，双修场景将追加官能日志。</div>
-</div>
-        <div style="font-size:14px; line-height:2;">
-            <div>
-                <input type="checkbox" id="set_gossip" onclick="window.toggleSetting('showGossip')"> 
-                <label for="set_gossip">显示路人八卦/表白</label>
+    <div id="mapModal" class="modal-overlay" onclick="if(event.target===this) this.style.display='none'">
+        <div class="modal bottom-sheet">
+            <div class="modal-header">
+                <h3>🌏 世界地图</h3>
+                <span class="close-btn" onclick="document.getElementById('mapModal').style.display='none'">×</span>
             </div>
-            <div>
-                <input type="checkbox" id="set_battle" onclick="window.toggleSetting('showBattle')"> 
-                <label for="set_battle">显示路人战斗/仇杀</label>
-            </div>
-            <div>
-                <input type="checkbox" id="set_birth" onclick="window.toggleSetting('showBirth')"> 
-                <label for="set_birth">显示路人生子/传闻</label>
-            </div>
-            
-            <div style="margin: 10px 0; border-top: 1px dashed #eee;"></div>
-            <div style="margin-bottom: 5px; font-weight:bold; color:var(--main-color);">🎵 音频控制</div>
-
-            <div style="background:#f9f9f9; padding:8px; border-radius:5px; margin-bottom:8px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
-                    <label style="display:flex; align-items:center;">
-                        <input type="checkbox" id="set_bgm" onclick="window.toggleSetting('enableBGM')"> 
-                        <span style="margin-left:5px; font-weight:bold; font-size:12px;">背景音乐</span>
-                    </label>
-                    <span id="display_bgm_vol" style="font-size:12px; color:#888;">40%</span>
-                </div>
-                <input type="range" id="vol_bgm" min="0" max="1" step="0.05" style="width:100%; cursor:pointer;" 
-                    oninput="window.adjustVolume('bgm', this.value)">
-            </div>
-
-            <div style="background:#f9f9f9; padding:8px; border-radius:5px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
-                    <label style="display:flex; align-items:center;">
-                        <input type="checkbox" id="set_sfx" onclick="window.toggleSetting('enableSFX')"> 
-                        <span style="margin-left:5px; font-weight:bold; font-size:12px;">游戏音效</span>
-                    </label>
-                    <span id="display_sfx_vol" style="font-size:12px; color:#888;">60%</span>
-                </div>
-                <input type="range" id="vol_sfx" min="0" max="1" step="0.05" style="width:100%; cursor:pointer;" 
-                    oninput="window.adjustVolume('sfx', this.value)"
-                    onchange="window.playSound('click')">
-            </div>
-
-            <div style="margin-top:10px; color:#999; font-size:12px;">
-                * 注：与你/道侣/子女相关的事件永远显示。
-        </div>
-        <div style="margin-top:15px; border-top:1px dashed #eee; padding-top:10px;">
-                <button class="btn" style="width:100%; background:#2c3e50; color:white;" onclick="window.toggleFullScreen()">
-                    ⛶ 切换全屏模式 (沉浸体验)
-                    </button>
-                    </div>
-    </div>
-    </div>
-    </div>
-    <div class="modal-overlay" id="historyModal" style="z-index: 200;" onclick="if(event.target===this) document.getElementById('historyModal').style.display='none'">
-        <div class="modal" style="width: 400px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
-                <h3 style="margin:0;">📜 生平履历</h3>
-                <span style="cursor:pointer; font-size:20px;" onclick="document.getElementById('historyModal').style.display='none'">×</span>
-            </div>
-            <div id="historyContent" style="max-height: 500px; overflow-y: auto; padding: 5px;"></div>
+            <div class="map-status">当前：<span id="mapCurrentLoc"></span></div>
+            <div id="mapList" class="scroll-box"></div>
         </div>
     </div>
-<div id="dao-modal" class="modal-overlay" style="display: none;">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>论道 · 重塑道心</h3>
-            <span class="close-btn" onclick="closeDaoModal()">×</span>
+
+    <div id="familyTreeModal" class="modal-overlay" onclick="if(event.target===this) this.style.display='none'">
+        <div class="modal full-screen-modal">
+            <div class="modal-header">
+                <h3>🌳 家族谱系</h3>
+                <span class="close-btn" onclick="document.getElementById('familyTreeModal').style.display='none'">×</span>
+            </div>
+            <div id="familyTreeContainer" class="tree-container"></div>
         </div>
-        <div class="modal-body">
-            <p id="dao-target-name">正在与 某某 论道...</p>
-            
-            <div class="dao-grid">
-                <button class="dao-btn light" onclick="confirmDao(1)">
-                    <span class="btn-title">点化</span>
-                    <span class="btn-desc">明悟天道 (道德↑)</span>
-                </button>
-                <button class="dao-btn dark" onclick="confirmDao(2)">
-                    <span class="btn-title">蛊惑</span>
-                    <span class="btn-desc">堕入魔道 (道德↓)</span>
-                </button>
+    </div>
+    
+    <div id="historyModal" class="modal-overlay" onclick="if(event.target===this) this.style.display='none'">
+        <div class="modal full-screen-modal">
+            <div class="modal-header">
+                <h3>📜 生平履历</h3>
+                <span class="close-btn" onclick="document.getElementById('historyModal').style.display='none'">×</span>
+            </div>
+            <div id="historyContent" class="scroll-box"></div>
+        </div>
+    </div>
 
-                <button class="dao-btn light" onclick="confirmDao(3)">
-                    <span class="btn-title">感化</span>
-                    <span class="btn-desc">领悟羁绊 (情义↑)</span>
-                </button>
-                <button class="dao-btn dark" onclick="confirmDao(4)">
-                    <span class="btn-title">离间</span>
-                    <span class="btn-desc">看透炎凉 (情义↓)</span>
-                </button>
-
-                <button class="dao-btn light" onclick="confirmDao(5)">
-                    <span class="btn-title">利诱</span>
-                    <span class="btn-desc">释放贪欲 (欲望↑)</span>
-                </button>
-                <button class="dao-btn dark" onclick="confirmDao(6)">
-                    <span class="btn-title">苦行</span>
-                    <span class="btn-desc">清静无为 (欲望↓)</span>
-                </button>
+    <div id="settingsModal" class="modal-overlay" onclick="if(event.target===this) window.closeModal()">
+        <div class="modal bottom-sheet">
+             <div class="modal-header">
+                <h3>⚙️ 设置</h3>
+                <span class="close-btn" onclick="window.closeModal()">×</span>
+            </div>
+            <div id="settingsContent_Placeholder" style="padding:15px;">
+                <input type="checkbox" id="set_r18" onclick="window.toggleSetting('enableR18')"> 
+                 <label for="set_r18">开启R18模式</label>
+                 <hr>
+                 <button class="btn full-width" onclick="window.toggleFullScreen()">⛶ 切换全屏</button>
             </div>
         </div>
     </div>
-</div>
-    <div class="modal-overlay" id="mapModal" style="z-index: 300;" onclick="if(event.target===this) document.getElementById('mapModal').style.display='none'">
-        <div class="modal" style="width: 450px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
-                <h3 style="margin:0;">🌏 世界地图</h3>
-                <span style="cursor:pointer; font-size:20px;" onclick="document.getElementById('mapModal').style.display='none'">×</span>
-            </div>
-            <div style="margin-bottom:15px; font-size:13px; color:#555; background:#f9f9f9; padding:8px; border-radius:4px;">
-                当前所在地：<span id="mapCurrentLoc" style="font-weight:bold; color:var(--main-color); font-size:15px;"></span>
-                <div style="font-size:11px; color:#999; margin-top:4px;">(提示：路途遥远，赶路期间将自动进行修炼，收益约为闭关的 50%~80%)</div>
-            </div>
-            <div id="mapList" style="display:flex; flex-direction:column; gap:10px; max-height:400px; overflow-y:auto;">
-                </div>
+    
+    <div id="alertModal" class="modal-overlay" style="display:none; z-index:20000;">
+        <div class="modal center-modal">
+            <h3 id="alertTitle">提示</h3>
+            <p id="alertMsg"></p>
+            <button class="btn full-width" onclick="closeCustomAlert()">知道了</button>
         </div>
     </div>
-<script type="module" src="main.js"></script>
-<div id="alertModal" class="modal-overlay" style="z-index: 20000; display: none;">
-    <div class="modal" style="width: 300px; text-align: center; animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
-        <h3 id="alertTitle" style="margin-top:0; color:var(--main-color);">提示</h3>
-        <p id="alertMsg" style="color:#555; margin: 20px 0; line-height: 1.5;"></p>
-        <button class="btn" style="background:var(--main-color); color:white; width:100%;" onclick="closeCustomAlert()">知道了</button>
-    </div>
-</div>
-
-<div id="confirmModal" class="modal-overlay" style="z-index: 20000; display: none;">
-    <div class="modal" style="width: 320px; text-align: center; animation: modalPop 0.3s;">
-        <h3 id="confirmTitle" style="margin-top:0; color:#d35400;">请确认</h3>
-        <p id="confirmMsg" style="color:#555; margin: 20px 0; text-align: left; background: #f9f9f9; padding: 10px; border-radius: 4px;"></p>
-        <div style="display:flex; gap:10px;">
-            <button class="btn" style="flex:1; background:#95a5a6; color:white;" onclick="resolveConfirm(false)">取消</button>
-            <button class="btn" style="flex:1; background:#d35400; color:white;" onclick="resolveConfirm(true)">确定</button>
-        </div>
-    </div>
-</div>
-
-<div id="inputModal" class="modal-overlay" style="z-index: 20000; display: none;">
-    <div class="modal" style="width: 320px; text-align: center; animation: modalPop 0.3s;">
-        <h3 id="inputTitle" style="margin-top:0; color:#2980b9;">输入</h3>
-        <p id="inputMsg" style="color:#666; font-size:12px; margin-bottom:10px;"></p>
-        <input type="text" id="inputField" style="width:90%; padding:8px; border:1px solid #ddd; border-radius:4px; margin-bottom:20px; font-size:16px;">
-        <div style="display:flex; gap:10px;">
-            <button class="btn" style="flex:1; background:#95a5a6; color:white;" onclick="resolveInput(null)">取消</button>
-            <button class="btn" style="flex:1; background:#2980b9; color:white;" onclick="resolveInput(document.getElementById('inputField').value)">确定</button>
-        </div>
-    </div>
-</div>
-
-<div id="choiceModal" class="modal-overlay" style="z-index: 20000; display: none;">
-    <div class="modal" style="width: 350px; animation: modalPop 0.3s;">
-        <h3 id="choiceTitle" style="margin-top:0; border-bottom:1px solid #eee; padding-bottom:10px;">请选择</h3>
-        <div id="choiceList" style="display:flex; flex-direction:column; gap:8px; max-height:300px; overflow-y:auto; padding:5px;">
+    
+    <div id="confirmModal" class="modal-overlay" style="display:none; z-index:20000;">
+        <div class="modal center-modal">
+            <h3 id="confirmTitle">确认</h3>
+            <p id="confirmMsg"></p>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="resolveConfirm(false)">取消</button>
+                <button class="btn btn-primary" onclick="resolveConfirm(true)">确定</button>
             </div>
-        <button class="btn" style="margin-top:15px; width:100%; background:#95a5a6; color:white;" onclick="resolveChoice(null)">关闭</button>
+        </div>
     </div>
-</div>
-<dialog id="game-modal">
-    <h3 id="modal-title">提示</h3>
-    <div id="modal-content">内容区域</div>
-    <input type="text" id="modal-input" placeholder="请输入...">
-    <div class="modal-buttons">
-        <button id="btn-cancel" class="modal-btn">取消</button>
-        <button id="btn-confirm" class="modal-btn">确定</button>
+    
+    <div id="inputModal" class="modal-overlay" style="display:none; z-index:20000;">
+        <div class="modal center-modal">
+            <h3 id="inputTitle">输入</h3>
+            <p id="inputMsg"></p>
+            <input type="text" id="inputField" class="modal-input">
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="resolveInput(null)">取消</button>
+                <button class="btn btn-primary" onclick="resolveInput(document.getElementById('inputField').value)">确定</button>
+            </div>
+        </div>
     </div>
-</dialog>
+    
+    <div id="choiceModal" class="modal-overlay" style="display:none; z-index:20000;">
+        <div class="modal center-modal">
+            <h3 id="choiceTitle">请选择</h3>
+            <div id="choiceList" class="scroll-box choice-list"></div>
+            <button class="btn btn-secondary full-width" onclick="resolveChoice(null)">关闭</button>
+        </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+
 </body>
-<div class="modal-overlay" id="familyTreeModal" onclick="if(event.target===this) document.getElementById('familyTreeModal').style.display='none'">
-    <div class="modal" style="width: 90%; height: 90%; max-width: 1000px; display:flex; flex-direction:column;">
-        <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
-            <h3 style="margin:0;">🌳 家族谱系</h3>
-            <span style="cursor:pointer; font-size:20px;" onclick="document.getElementById('familyTreeModal').style.display='none'">×</span>
-        </div>
-        <div style="flex:1; overflow: auto; background:#f9f9f9; border-radius:4px; padding:20px; text-align:center;" id="familyTreeContainer">
-            </div>
-        <div style="margin-top:10px; text-align:center; font-size:12px; color:#999;">
-            提示：点击角色可查看详情，点击空白处关闭。
-        </div>
-    </div>
-</div>
 </html>
