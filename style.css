@@ -20,7 +20,7 @@ body {
     padding: 20px; 
     display: flex; 
     gap: 20px; 
-    height: 95vh; 
+    height: 100vh; 
     overflow: hidden;
     margin: 0; /* 修正默认边距 */
 }
