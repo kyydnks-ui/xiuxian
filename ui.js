@@ -2284,7 +2284,7 @@ function autoResizeGame() {
         // === 横屏模式 ===
         // 目标：让高度刚好填满屏幕，宽度自动延伸
         // 假设游戏原本设计高度大约是 700px (根据你的弹窗高度推算)
-        const targetHeight = 700; 
+        const targetHeight = 750; 
         let scale = windowHeight / targetHeight;
         
         // 限制最大缩放倍数，防止糊得太厉害

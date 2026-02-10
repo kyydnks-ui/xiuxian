@@ -482,27 +482,42 @@ body {
     border-color: rgba(233, 30, 99, 0.3);
 }
 /* === 针对横屏手机的特殊适配 === */
+/* === 针对横屏手机的特殊适配 (修正版) === */
 @media screen and (max-height: 600px) {
-    /* 1. 让所有弹窗的高度自适应，不要写死 */
+    /* 让弹窗顶部对齐，而不是垂直居中 */
     .modal, .modal-detail {
-        height: auto !important;       /* 覆盖原本的固定高度 */
-        max-height: 90vh !important;   /* 最大高度不超过屏幕的 90% */
-        overflow-y: auto !important;   /* 内容超高时出现滚动条 */
-        top: 50% !important;
-        transform: translate(0, -50%) !important; /* 确保垂直居中 */
-        margin: 0 auto;
+        top: 5px !important;            /* 距离屏幕顶部仅留 5px 缝隙 */
+        transform: translate(-50%, 0) !important; /* 保持水平居中，取消垂直偏移 */
+        left: 50% !important;           /* 配合 translate 实现水平居中 */
+        
+        height: auto !important;        /* 高度自适应 */
+        max-height: 95vh !important;    /* 最大高度占满屏幕 95% */
+        overflow-y: auto !important;    /* 内容超高时允许滚动 */
+        
+        /* 针对 iOS Safari 的底部安全区适配 */
+        padding-bottom: 20px; 
     }
 
-    /* 2. 角色创建界面特殊处理 */
-    /* 因为这个界面原本很高，横屏必须允许滚动 */
+    /* 角色创建界面特殊处理 */
     #charCreator .modal {
-        display: block !important; /* 取消 flex，防止被压缩变形 */
-        overflow-y: auto;
+        display: block !important;
+        width: 95% !important;
+        max-width: none !important;
     }
 
-    /* 3. 稍微缩小字体和内边距，节省空间 */
-    .modal h3 { margin: 5px 0; }
-    .btn { padding: 4px 8px; font-size: 12px; }
+    /* 缩小设置弹窗里的间距，让内容更紧凑 */
+    #settingsModal .modal {
+        padding: 10px !important;
+    }
+    #settingsModal h3 {
+        margin-bottom: 5px !important;
+        font-size: 16px !important;
+    }
+    /* 缩小滑动条和复选框的占用空间 */
+    #settingsModal div {
+        margin-bottom: 5px !important;
+        line-height: 1.5 !important;
+    }
 }
 /* === 竖屏检测与遮罩 === */
 #orientation-lock {
