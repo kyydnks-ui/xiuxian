@@ -1,0 +1,517 @@
+@charset "UTF-8";
+
+/* ====================
+   1. 全局基础样式
+   ==================== */
+:root { 
+    --main-color: #4a3b52;    /* 绛紫：主色 */
+    --bg-color: #fdfbf7;      /* 米白：背景 */
+    --panel-bg: #ffffff;      /* 面板背景 */
+    --text-color: #2c3e50;    /* 墨色：正文 */
+    --accent-color: #c0392b;  /* 朱砂：强调色 */
+    --border-color: #e6e2d8;  /* 边框色 */
+}
+
+body { 
+    font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+    background-color: var(--bg-color);
+    background-image: linear-gradient(to bottom, #fdfbf7 0%, #f4f1ea 100%); 
+    color: var(--text-color); 
+    padding: 20px; 
+    display: flex; 
+    gap: 20px; 
+    height: 95vh; 
+    overflow: hidden;
+    margin: 0; /* 修正默认边距 */
+}
+
+/* ====================
+   2. 头像与立绘系统
+   ==================== */
+.avatar-box {
+    position: relative;
+    display: inline-block;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    margin-right: 8px;
+}
+
+.avatar-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* ====================
+   3. 游戏主布局 (左中右)
+   ==================== */
+.game-area { 
+    flex: 3; 
+    display: flex; 
+    flex-direction: column; 
+    overflow-y: auto; 
+    padding-right: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #d1c4b8 transparent;
+}
+
+.log-panel { 
+    flex: 1; 
+    background: #fff; 
+    color: #444; 
+    padding: 15px; 
+    border-radius: 8px; 
+    overflow-y: auto; 
+    font-size: 13px; 
+    border: 1px solid var(--border-color); 
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.log-entry { 
+    margin-bottom: 8px; 
+    border-bottom: 1px dashed #eee; 
+    padding-bottom: 4px; 
+    line-height: 1.5; 
+}
+
+.log-time { 
+    color: #7f8c8d; 
+    font-size: 11px; 
+    font-weight: bold; 
+    margin-right: 5px; 
+    background: #f0f0f0; 
+    padding: 1px 4px; 
+    border-radius: 3px; 
+}
+
+.player-panel { 
+    background: #fcfaf2; /* 象牙纸色，不再是死白 */
+    background-image: linear-gradient(to right, #fcfaf2, #f8f1e5); /* 增加一点光影渐变 */
+    padding: 15px 20px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+    margin-bottom: 15px; 
+    border-left: 6px solid var(--main-color);
+    border: 1px solid #e6e2d8; /* 细边框 */
+    position: relative;
+    display: flex; /* 改为弹性布局，横向排列 */
+    flex-direction: column; 
+    gap: 10px;
+}
+
+/* ====================
+   4. 按钮与交互组件
+   ==================== */
+.btn { 
+    padding: 6px 14px; 
+    border: none; 
+    border-radius: 6px;
+    cursor: pointer; 
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    font-size: 13px; 
+    margin: 3px;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    font-family: "Microsoft YaHei", sans-serif;
+}
+
+.btn:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15); 
+    filter: brightness(1.05); 
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1); 
+}
+
+/* 特殊按钮颜色类 */
+.btn-talk { background: #e3f2fd; color: #2980b9; }
+.btn-gift { background: #e8f5e9; color: #27ae60; }
+.btn-steal { background: #fff3e0; color: #e67e22; }
+.btn-attack { background: #ffebee; color: #c0392b; }
+.btn-kill { background: #2c3e50; color: #e74c3c; grid-column: span 2; font-weight: bold; }
+.btn-kidnap { background: #34495e; color: #fff; grid-column: span 2; font-weight: bold; border: 1px dashed #fff; }
+.btn-release { background: #1abc9c; color: #fff; grid-column: span 2; }
+.btn-marry { background: #fce4ec; color: #c2185b; grid-column: span 2; font-weight:bold; border: 1px solid #f8bbd0; animation: pulse 1s infinite; }
+.btn-divorce { background: #95a5a6; color: #fff; grid-column: span 2; }
+.btn-divorce-force { background: #d35400; color: #fff; grid-column: span 2; font-weight:bold;}
+.btn-baby { background: #f3e5f5; color: #7b1fa2; grid-column: span 2; font-weight: bold;} 
+.btn-force { background: #4a148c; color: #fff; grid-column: span 2; font-weight: bold; border: 1px solid #ab47bc; }
+.btn-inv { position: absolute; top: 15px; right: 15px; background: #f39c12; color: white; font-size: 12px; }
+.btn-persuade { background: #fdfae3; color: #856404; border: 1px solid #ffeeba; }
+
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
+
+/* ====================
+   5. 人物卡片与列表
+   ==================== */
+.npc-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
+
+.npc-card { 
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 10px; 
+    padding: 12px; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    position: relative; 
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.npc-card:hover { 
+    transform: translateY(-4px); 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    border-color: var(--main-color); 
+}
+
+.npc-card.female { background-color: #fff5f7; }
+.npc-card.male { background-color: #f0f8ff; }
+.npc-card.imprisoned { background-color: #596275 !important; border-color: #2c3e50; color: #ecf0f1; }
+.npc-card.imprisoned .npc-name { color: #bdc3c7; }
+
+/* 入魔样式 */
+.npc-card.demonic {
+    background: linear-gradient(135deg, #2c0000 0%, #4a0000 100%);
+    border: 1px solid #c0392b;
+    color: #ecf0f1;
+    box-shadow: 0 0 10px rgba(192, 57, 43, 0.5);
+}
+.npc-card.demonic .npc-name { color: #ff4d4d; text-shadow: 0 0 5px #ff0000; }
+.npc-card.demonic div { color: #bdc3c7; }
+
+/* 状态徽章 */
+.status-badge { position: absolute; top: 10px; right: 10px; font-size: 10px; padding: 2px 5px; border-radius: 4px; color: white; }
+.badge-spouse { background: #e74c3c; }
+.badge-preg { background: #9b59b6; }
+.badge-jail { background: #2c3e50; border: 1px solid #fff; }
+.badge-nemesis { background: #c0392b; border: 1px solid #fff; }
+.badge-lovehate { background: #e056fd; border: 1px solid #fff; }
+.badge-demon {
+    background: #000;
+    border: 1px solid #c0392b;
+    color: #c0392b;
+    font-weight: bold;
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(192, 57, 43, 0.7); }
+    70% { box-shadow: 0 0 0 5px rgba(192, 57, 43, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(192, 57, 43, 0); }
+}
+
+/* ====================
+   6. 属性标签与统计
+   ==================== */
+.stats-bar { display: flex; gap: 20px; margin-top: 10px; background: #f9f9f9; padding: 10px; border-radius: 5px; }
+.stat-item { display: flex; flex-direction: column; align-items: center; font-size: 12px; }
+.stat-item strong { font-size: 16px; color: var(--main-color); }
+
+.tag { font-size: 10px; padding: 2px 5px; border-radius: 3px; color: #fff; display: inline-block; margin-right: 3px; }
+.tag.god { background: linear-gradient(45deg, #9b59b6, #e056fd); box-shadow: 0 0 5px #e056fd; }
+.tag.good { background-color: #27ae60; }
+.tag.bad { background-color: #c0392b; }
+.tag.neutral { background-color: #95a5a6; }
+.personality-label { font-size: 10px; background: rgba(0,0,0,0.05); color: #666; padding: 1px 4px; border-radius: 3px; vertical-align: middle; }
+.realm-badge { background: #2c3e50; color: #f1c40f; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-left: 5px; border: 1px solid #f1c40f;}
+
+/* ====================
+   7. 弹窗系统 (Modal)
+   ==================== */
+.modal-overlay { 
+    display: none; 
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%; 
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 100; 
+    justify-content: center; 
+    align-items: center; 
+}
+.modal { 
+    background: #fff; 
+    width: 400px; 
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
+    animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes modalPop {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* 角色详情大弹窗 */
+.modal-detail {
+    max-width: 850px;
+    width: 90%;
+    display: flex;
+    gap: 16px;
+    padding: 20px 24px;
+    position: relative;
+}
+.detail-left { flex: 1.2; border-right: 1px dashed #eee; padding-right: 16px; }
+.detail-center { flex: 1.5; display: flex; flex-direction: column; gap: 10px; }
+.detail-right { flex: 0.9; display: flex; flex-direction: column; align-items: stretch; border-left: 1px dashed #eee; padding-left: 16px; }
+
+.detail-attr-section { background: #f9f6ff; border: 1px solid #e0d7ff; border-radius: 6px; padding: 8px 10px; }
+.detail-attr-title { font-size: 13px; font-weight: bold; color: #7e57c2; margin-bottom: 4px; }
+.detail-attr-row { display: flex; justify-content: space-between; font-size: 13px; padding: 2px 0; }
+.detail-right-title { font-size: 13px; font-weight: bold; color: #444; margin-bottom: 6px; }
+.modal-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; align-items: stretch; }
+.modal-actions .btn { width: 100%; font-size: 14px; padding: 8px 12px; }
+
+/* 玩家详情特殊样式 */
+.modal-detail.is-player .detail-right { display: none; }
+.modal-detail.is-player .detail-attr-emotion { display: none; }
+.modal-detail.is-player .detail-center { flex: 2.2; }
+
+/* 论道暗黑弹窗 */
+#dao-modal.modal-overlay { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(4px); z-index: 2000; }
+.modal-content { background: #1a1a1a; border: 1px solid #4a4a4a; box-shadow: 0 0 25px rgba(0, 0, 0, 0.9); width: 420px; padding: 25px; border-radius: 6px; color: #ccc; position: relative; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 20px; }
+.modal-header h3 { margin: 0; color: #e0e0e0; font-size: 20px; letter-spacing: 2px; }
+.close-btn { cursor: pointer; font-size: 24px; color: #666; transition: color 0.2s; line-height: 1; }
+.close-btn:hover { color: #fff; }
+#dao-target-name { text-align: center; color: #888; font-size: 14px; margin-bottom: 20px; font-style: italic; }
+.dao-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.dao-btn { padding: 15px; border: 1px solid #333; background: #252525; color: #aaa; cursor: pointer; text-align: left; transition: all 0.2s ease; border-radius: 4px; position: relative; overflow: hidden; }
+.dao-btn:hover { background: #333; transform: translateY(-2px); }
+.btn-title { display: block; font-size: 18px; font-weight: bold; margin-bottom: 5px; }
+.btn-desc { display: block; font-size: 12px; opacity: 0.6; }
+.dao-btn.light .btn-title { color: #f1c40f; }
+.dao-btn.light:hover { border-color: #f1c40f; box-shadow: 0 0 10px rgba(241, 196, 15, 0.15); }
+.dao-btn.dark .btn-title { color: #9b59b6; }
+.dao-btn.dark:hover { border-color: #9b59b6; box-shadow: 0 0 10px rgba(155, 89, 182, 0.15); }
+
+/* 原生 Dialog 样式 */
+#game-modal {
+    background-color: #fdf5e6; border: 3px double #5d4037; border-radius: 8px; padding: 20px;
+    min-width: 300px; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); font-family: "Microsoft YaHei", serif;
+    color: #3e2723; z-index: 10000;
+}
+#game-modal::backdrop { background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(2px); }
+#modal-title { margin-top: 0; color: #c0392b; border-bottom: 1px solid #d7ccc8; padding-bottom: 10px; text-align: center; }
+#modal-content { margin: 15px 0; line-height: 1.6; font-size: 1.1em; }
+#modal-input { width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #8d6e63; border-radius: 4px; background: #fff8e1; font-size: 1em; display: none; box-sizing: border-box; }
+.modal-buttons { display: flex; justify-content: flex-end; gap: 10px; }
+.modal-btn { padding: 8px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: all 0.2s; }
+#btn-confirm { background-color: #5d4037; color: #fdf5e6; }
+#btn-confirm:hover { background-color: #3e2723; }
+#btn-cancel { background-color: #d7ccc8; color: #5d4037; display: none; }
+#btn-cancel:hover { background-color: #bcaaa4; }
+
+/* ====================
+   8. 家族树系统
+   ==================== */
+.family-area { margin-top: 10px; border-top: 1px dashed #ddd; padding-top: 10px; }
+.child-token { display: inline-block; padding: 4px 10px; margin: 3px; border-radius: 15px; font-size: 12px; background: #eee; border: 1px solid #ccc; cursor: pointer; transition: 0.2s; }
+.child-token.girl { background: #fff0f5; color: #d63384; border-color: #ffc2d1; }
+.child-token.boy { background: #f0f8ff; color: #0d6efd; border-color: #b6d4fe; }
+
+.tree ul { padding-top: 20px; position: relative; transition: all 0.5s; display: flex; justify-content: center; }
+.tree li { float: left; text-align: center; list-style-type: none; position: relative; padding: 20px 5px 0 5px; transition: all 0.5s; }
+.tree li::before, .tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 1px solid #ccc; width: 50%; height: 20px; }
+.tree li::after { right: auto; left: 50%; border-left: 1px solid #ccc; }
+.tree li:only-child::after, .tree li:only-child::before { display: none; }
+.tree li:only-child { padding-top: 0; }
+.tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
+.tree li:last-child::before{ border-right: 1px solid #ccc; border-radius: 0 5px 0 0; }
+.tree li:first-child::after{ border-radius: 5px 0 0 0; }
+.tree ul ul::before{ content: ''; position: absolute; top: 0; left: 50%; border-left: 1px solid #ccc; width: 0; height: 20px; }
+
+.tree-member {
+    border: 1px solid #bdc3c7; 
+    padding: 8px;
+    text-decoration: none; 
+    color: #666;
+    font-size: 12px; 
+    display: inline-block;
+    border-radius: 6px; 
+    transition: all 0.3s;
+    background: #fff; 
+    cursor: pointer;
+    min-width: 100px;
+    position: relative; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.tree-member:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.15); z-index: 10; }
+.tree-girl { background: #fff0f5; border-color: #ffc2d1; }
+.tree-boy { background: #f0f8ff; border-color: #b6d4fe; }
+.tree-member .spouse { font-size: 11px; display: block; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 4px; padding-top: 2px; }
+
+/* ====================
+   9. 剧情故事与开场/结局 (优化版)
+   ==================== */
+#introScreen {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #000;
+    z-index: 2000;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* 结局屏幕复用开场的容器样式，但可以加个特殊类 */
+#endingScreen {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #000;
+    z-index: 3000; /* 比开场更高 */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.story-container {
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+    min-height: 100px;
+}
+
+.story-line {
+    font-size: 26px;
+    line-height: 1.8;
+    color: #fff;
+    font-family: "KaiTi", "楷体", serif;
+    opacity: 0;
+    animation: textFadeIn 1s ease-out forwards;
+    margin-bottom: 20px; /* 增加行间距 */
+}
+
+/* 结局文字可以稍微不同，比如金色 */
+.ending-line {
+    font-size: 28px;
+    color: #f1c40f; /* 金色文字 */
+    text-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+}
+
+@keyframes textFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.click-hint {
+    position: absolute;
+    bottom: 50px;
+    color: #666;
+    font-size: 14px;
+    letter-spacing: 2px;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.skip-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    padding: 8px 15px;
+    background: transparent;
+    border: 1px solid #444;
+    color: #888;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 2001;
+    transition: 0.3s;
+}
+.skip-btn:hover { border-color: #fff; color: #fff; }
+
+/* ====================
+   10. 其他组件 (背包、开始界面等)
+   ==================== */
+.inv-item { background: #f9f9f9; padding: 8px; border-bottom: 1px solid #eee; display:flex; justify-content:space-between; align-items:center; }
+.inv-item:last-child { border-bottom: none; }
+
+#startScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f3f0f5; z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.start-card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 300px; text-align: center; }
+.start-stat { display: flex; justify-content: space-between; margin: 10px 0; border-bottom: 1px solid #eee; padding: 5px 0;}
+.section-title { border-bottom: 2px solid #ddd; padding-bottom:10px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+/* === R18 互动特效 === */
+
+/* 定义一个类似果冻弹性的动画 */
+@keyframes flesh-pulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(0.98); filter: brightness(0.9); } /* 按压感 */
+    70% { transform: scale(1.02); filter: brightness(1.1); } /* 回弹 */
+    100% { transform: scale(1); }
+}
+
+/* 点击时的类名 */
+.r18-touch-anim {
+    animation: flesh-pulse 0.2s ease-out;
+}
+
+/* 进度条容器优化：让它看起来更像一个可触摸的实体 */
+.r18-part-row {
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+/* 鼠标悬停时，稍微高亮，提示这里可以摸 */
+.r18-part-row:hover {
+    background-color: rgba(255, 192, 203, 0.15); /* 淡淡的粉色背景 */
+    border-color: rgba(233, 30, 99, 0.3);
+}
+/* === 针对横屏手机的特殊适配 === */
+@media screen and (max-height: 600px) {
+    /* 1. 让所有弹窗的高度自适应，不要写死 */
+    .modal, .modal-detail {
+        height: auto !important;       /* 覆盖原本的固定高度 */
+        max-height: 90vh !important;   /* 最大高度不超过屏幕的 90% */
+        overflow-y: auto !important;   /* 内容超高时出现滚动条 */
+        top: 50% !important;
+        transform: translate(0, -50%) !important; /* 确保垂直居中 */
+        margin: 0 auto;
+    }
+
+    /* 2. 角色创建界面特殊处理 */
+    /* 因为这个界面原本很高，横屏必须允许滚动 */
+    #charCreator .modal {
+        display: block !important; /* 取消 flex，防止被压缩变形 */
+        overflow-y: auto;
+    }
+
+    /* 3. 稍微缩小字体和内边距，节省空间 */
+    .modal h3 { margin: 5px 0; }
+    .btn { padding: 4px 8px; font-size: 12px; }
+}
+/* === 竖屏检测与遮罩 === */
+#orientation-lock {
+    display: none; /* 默认隐藏 */
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #2c3e50;
+    color: white;
+    z-index: 99999;
+}
+
+/* 当屏幕处于竖屏状态 (高度 > 宽度) 时显示遮罩 */
+@media screen and (orientation: portrait) {
+    #orientation-lock { display: block; }
+}
